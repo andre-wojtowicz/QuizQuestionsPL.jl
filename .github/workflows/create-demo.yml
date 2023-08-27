@@ -51,7 +51,7 @@ jobs:
                   left:
                   - href: index.qmd
                     text: "Demo PL"
-        - name: Create website files (1)
+        - name: Create website files (2)
           uses: DamianReeves/write-file-action@master
           with:
             path: index.qmd
