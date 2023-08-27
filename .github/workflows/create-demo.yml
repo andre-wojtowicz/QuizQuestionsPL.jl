@@ -50,20 +50,18 @@ jobs:
             contents: |
               project:
                 type: website
+              lang: pl
               
               website:
-                title: "Demo PL"
-                navbar:
-                  left:
-                  - href: index.qmd
-                    text: "Demo PL"
+                title: "QuizQuestionsPL"
+                navbar: false
         - name: Create website files (2)
           uses: DamianReeves/write-file-action@master
           with:
             path: index.qmd
             contents: |
               ---
-              title: "Demo PL"
+              title: "Demo"
               format:
                 html:
                   code-fold: true

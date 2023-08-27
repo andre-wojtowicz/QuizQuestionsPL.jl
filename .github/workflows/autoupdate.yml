@@ -84,6 +84,8 @@ jobs:
         # QuizQuestionsPL.jl
 
         Polish translation of [QuizQuestions.jl](https://github.com/jverzani/QuizQuestions.jl).
+
+        See Quarto rendered [demo website](https://andre-wojtowicz.github.io/QuizQuestionsPL.jl).
         
         ## Install
 
@@ -103,10 +105,6 @@ jobs:
         \`\`\`julia
         using QuizQuestionsPL
         \`\`\`
-
-        ## Demo
-
-        See <https://andre-wojtowicz.github.io/QuizQuestionsPL.jl>
         EOL
 
         sed -i  -e 's/"Choose..."/"Wybierz..."/g' \
