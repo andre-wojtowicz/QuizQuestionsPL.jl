@@ -12,7 +12,7 @@ Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl")
 Specific version providing [version tag](https://github.com/andre-wojtowicz/QuizQuestionsPL.jl/tags):
 
 ```julia
-Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl", rev="<tag-version>")
+Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl", rev="<tag_version>")
 ```
 
 ## Usage
