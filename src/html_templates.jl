@@ -217,7 +217,7 @@ html_templates["MultiButtonq"] = mt"""
   <div class="col mt-1 align-self-center">
   <button id="button_{{:ID}}-done" class="btn btn-primary"
      style="display:block; margin:auto;text-align:center;{{#:BLUE}}background:{{{:BLUE}}}{{/:BLUE}}" onclick="return false;">
-      DONE
+      Wyślij
   </button>
   </div>
 </div>

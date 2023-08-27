@@ -382,7 +382,7 @@ booleanq(true; label="Does it hurt...")
 
 """
 function booleanq(ans::Bool;
-                  labels::Vector=["true", "false"],
+                  labels::Vector=["prawda", "fałsz"],
                   label="", hint::AbstractString="", explanation="",
                   inline::Bool=true)
     choices = labels[1:2]
@@ -400,13 +400,13 @@ Boolean question with `yes` or `no` labels.
 Examples:
 
 ```
-yesnoq("yes")
+yesnoq("tak")
 yesnoq(true)
 ```
 
 """
-yesnoq(ans::AbstractString, args...; kwargs...) = radioq(["Yes", "No"], ans == "yes" ? 1 : 2, args...; keep_order=true, kwargs...)
-yesnoq(ans::Bool, args...; kwargs...) = yesnoq(ans ? "yes" : "no", args...;kwargs...)
+yesnoq(ans::AbstractString, args...; kwargs...) = radioq(["Tak", "Nie"], ans == "tak" ? 1 : 2, args...; keep_order=true, kwargs...)
+yesnoq(ans::Bool, args...; kwargs...) = yesnoq(ans ? "tak" : "nie", args...;kwargs...)
 
 ## --------
 

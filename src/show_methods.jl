@@ -225,7 +225,7 @@ function blank(x::FillBlankChoiceQ, ID)
 end
 
 function blank(x::FillBlankStringQ, ID)
-    PLACEHOLDER = isnothing(x.placeholder) ? "Podaj odpowiedź tutaj..." : x.placeholder
+    PLACEHOLDER = isnothing(x.placeholder) ? "wpisz tutaj odpowiedź..." : x.placeholder
     BLANK = Mustache.render(html_templates["fill_in_blank_input"],
                             ID = ID,
                             TYPE="text",
@@ -243,7 +243,7 @@ function blank(x::FillBlankStringQ, ID)
 end
 
 function blank(x::FillBlankNumericQ, ID)
-    PLACEHOLDER = isnothing(x.placeholder) ? "Podaj odpowiedź tutaj..." : x.placeholder
+    PLACEHOLDER = isnothing(x.placeholder) ? "wpisz tutaj odpowiedź..." : x.placeholder
     BLANK = Mustache.render(html_templates["fill_in_blank_input"],
                             ID = ID,
                             TYPE="number",
