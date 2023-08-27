@@ -101,6 +101,8 @@ jobs:
                 -e 's/"yes"/"tak"/g' \
                 -e 's/"No"/"Nie"/g' \
                 -e 's/"no"/"nie"/g' \
+                -e 's/"You have {{:correct}} \*correct\* in {{:attempted}} \*attempted\* questions. There are {{:total_questions}} total questions to try."/"Prawidłowe odpowiedzi: {{:correct}}. Próby: {{:attempted}}. Łącznie pytań do rozwiązania: {{:total_questions}}."/' \
+                -e 's/"You have {{:correct}} \*correct\* of the {{:total_questions}} total questions to try."/"Prawidłowe odpowiedzi: {{:correct}}. Łącznie pytań do rozwiązania: {{:total_questions}}."/' \
             src/question_types.jl
 
         git config --global user.name 'Git bot'
