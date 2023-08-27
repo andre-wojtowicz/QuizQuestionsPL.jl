@@ -57,10 +57,12 @@ jobs:
       if: ${{ steps.compare_versions.outputs.cond == 'NO_UPDATE' }}
       run:
         echo "Update not needed"
+        echo "REPO_DISPATCH=false" >> "$GITHUB_ENV"
     - name: Perform autoupdate
       if: ${{ steps.compare_versions.outputs.cond == 'UPDATE' || github.event_name == 'workflow_dispatch' }}
       run: |
         echo "Update needed"
+        echo "REPO_DISPATCH=true" >> "$GITHUB_ENV"
 
         COMMIT_STR=$(cd QuizQuestions.jl && git log --format='%H' -n 1)
         cd QuizQuestionsPL.jl
@@ -80,7 +82,31 @@ jobs:
 
         echo """# QuizQuestionsPL.jl
 
-        Polish translation of [QuizQuestions.jl](https://github.com/jverzani/QuizQuestions.jl).""" > README.md
+        Polish translation of [QuizQuestions.jl](https://github.com/jverzani/QuizQuestions.jl).
+        
+        ## Install
+
+        ```julia
+        using Pkg
+        Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl")
+        ```
+
+        Specific version providing [version tag](https://github.com/andre-wojtowicz/QuizQuestionsPL.jl/tags):
+
+        ```julia
+        Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl", rev="<tag_version>")
+        ```
+
+        ## Usage
+
+        ```julia
+        using QuizQuestionsPL
+        ```
+
+        ## Demo
+
+        See <https://andre-wojtowicz.github.io/QuizQuestionsPL.jl>
+        """ > README.md
 
         sed -i  -e 's/"Choose..."/"Wybierz..."/g' \
                 -e 's/"Correct"/"Poprawna odpowiedź"/g' \
@@ -101,8 +127,8 @@ jobs:
                 -e 's/"yes"/"tak"/g' \
                 -e 's/"No"/"Nie"/g' \
                 -e 's/"no"/"nie"/g' \
-                -e 's/"You have {{:correct}} \*correct\* in {{:attempted}} \*attempted\* questions. There are {{:total_questions}} total questions to try."/"Prawidłowe odpowiedzi: {{:correct}}. Próby: {{:attempted}}. Łącznie pytań do rozwiązania: {{:total_questions}}."/' \
-                -e 's/"You have {{:correct}} \*correct\* of the {{:total_questions}} total questions to try."/"Prawidłowe odpowiedzi: {{:correct}}. Łącznie pytań do rozwiązania: {{:total_questions}}."/' \
+                -e 's/"You have {{:correct}} \*correct\* in {{:attempted}} \*attempted\* questions. There are {{:total_questions}} total questions to try."/"Poprawne odpowiedzi: {{:correct}}. Rozwiązanych pytań: {{:attempted}}. Łącznie pytań do rozwiązania: {{:total_questions}}."/' \
+                -e 's/"You have {{:correct}} \*correct\* of the {{:total_questions}} total questions to try."/"Poprawne odpowiedzi: {{:correct}}. Łącznie pytań do rozwiązania: {{:total_questions}}."/' \
             src/question_types.jl
 
         git config --global user.name 'Git bot'
@@ -114,3 +140,10 @@ jobs:
         
         git tag "v${PKG_VERSION}_$(date '+%Y%m%d%H%M')"
         git push origin --tags
+    - name: Repository Dispatch
+      if: ${{ env.REPO_DISPATCH != 'false' }}
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: ${{ github.repository }}
+        event-type: build-github-pages
