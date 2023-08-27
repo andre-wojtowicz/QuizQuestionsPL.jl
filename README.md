@@ -2,6 +2,8 @@
 
 Polish translation of [QuizQuestions.jl](https://github.com/jverzani/QuizQuestions.jl).
 
+See Quarto rendered [demo website](https://andre-wojtowicz.github.io/QuizQuestionsPL.jl).
+
 ## Install
 
 ```julia
@@ -20,7 +22,3 @@ Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl", rev="<tag-v
 ```julia
 using QuizQuestionsPL
 ```
-
-## Demo
-
-See <https://andre-wojtowicz.github.io/QuizQuestionsPL.jl>
