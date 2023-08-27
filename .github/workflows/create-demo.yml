@@ -73,13 +73,15 @@ jobs:
               using QuizQuestionsPL
               ```
 
-              Dopasuj `abc`
+              ----
 
               ```{julia}
               #| echo: false
               re = Regex("abc")
-              stringq(re)
+              stringq(re, label="Podaj tekst, w którym będzie zawarty ciąg `abc`:")
               ```
+
+              ----
 
               ```{julia}
               #| echo: false
@@ -87,34 +89,33 @@ jobs:
               numericq(a, label= raw"Ile wynosi ``\sin(\frac{\pi}{2})``?")
               ```
 
-              Ile metrów to $100$ centymetrów?
-
+              ----
 
               ```{julia}
               #| echo: false
               a = 1
-              numericq(a, units="metr/y/ów", hint="Jest to 1 metr")
+              numericq(a, label= raw"Ile metrów to ``100`` centymetrów?", units="metr/y/ów", hint="Jest to 1 metr")
               ```
 
-              Ile wynosi $\sqrt{2}$?
-
+              ----
 
               ```{julia}
               #| echo: false
               a = sqrt(2)
               Δ = 1e-2
-              numericq(a, Δ, hint="Podaj 3 cyfry")
+              numericq(a, Δ, label= raw"Ile wynosi ``\sqrt{2}``?", hint="Podaj 3 cyfry")
               ```
 
-              Która z odpowiedzi to "jeden"?
-
+              ----
 
               ```{julia}
               #| echo: false
               choices = ("``1``", "``2``", "``3``")
               answer = 1
-              radioq(choices, answer, hint="Wybierz odpowiedź pasującą do pytania", keep_order=true)
+              radioq(choices, answer, label="Która z odpowiedzi to \"jeden\"?", hint="Wybierz odpowiedź pasującą do pytania", keep_order=true)
               ```
+
+              ----
 
               ```{julia}
               #| echo: false
@@ -123,19 +124,17 @@ jobs:
               radioq(choices, answer; label="Która z odpowiedzi to litera?", hint="Która z odpowiedzi przedstawia grecką literę?")
               ```
 
-              Pytanie z dopasowaniem
-
+              ----
 
               ```{julia}
               #| echo: false
-              questions = ("Wybierz Volvo", "Wybierz Mercedesa", "Wybierz Audi")
+              questions = ("Wybierz Volvo:", "Wybierz Mercedesa:", "Wybierz Audi:")
               choices = ("XC90", "A4", "GLE 350", "X1") # may be more than questions
               answer = (1,3,2) # indices of correct
               matchq(questions, choices, answer)
               ```
 
-              Button choice
-
+              ----
 
               ```{julia}
               #| echo: false
@@ -144,7 +143,7 @@ jobs:
               buttonq(choices, answer; label="Wybierz literę", hint="Która z odpowiedzi przedstawia grecką literę?")
               ```
 
-              Hotspot
+              ----
 
               ```{julia}
               #| hold: true
@@ -161,39 +160,39 @@ jobs:
               hotspotq(imgfile, (0,1/2), (0, 1/2), label="Który wykres przedstawia ``f(x) = -x^4``?")
               ```
 
-              yesnoq
+              ----
 
               ```{julia}
               #| echo: false
               yesnoq("tak"; label="Dobrze się bawisz?", hint="Nie jest przecież tak źle", explanation="Chcemy byś się dobrze bawił/a")
               ```
 
-              booleanq
+              ----
 
               ```{julia}
               #| echo: false
-              booleanq(true; label="Dobrze się bawisz?", hint="Nie jest przecież tak źle", explanation="Chcemy byś się dobrze bawił/a")
+              booleanq(true; label="Stolicą Polski jest Warszawa - prawda czy fałsz?")
               ```
 
-              multiq
+              ----
 
               ```{julia}
               #| echo: false
-              choices = ["cytryna", "pomidor", "banan"]
+              choices = ["cytryna", "truskawka", "banan"]
               answers = [1,3]
               multiq(choices, answers; label="Żółte owoce to...?", hint="Nie ten czerwony!")
               ```
 
-              multibuttonq
+              ----
 
               ```{julia}
               #| echo: false
-              choices = ["cytryna", "pomidor", "banan"]
+              choices = ["cytryna", "truskawka", "banan"]
               answers = [1,3]
               multibuttonq(choices, answers; label="Żółte owoce to...?", hint="Nie ten czerwony!")
               ```
 
-              fillblankq
+              ----
 
               ```{julia}
               #| echo: false
@@ -201,22 +200,32 @@ jobs:
               fillblankq(question, r"lazy")
               ```
 
+              ----
+
               ```{julia}
               #| echo: false
               fillblankq(question, ("lazy", "brown", "sleeping"), 1)
               ```
+
+              ----
 
               ```{julia}
               #| echo: false
               fillblankq("____ ``+ 2  = 4``", 2)
               ```
 
-              scorecard
+              ----
+
+              Podsumowanie odpowiedzi:
 
               ```{julia}
               #| echo: false
               scorecard()
               ```
+
+              ----
+
+              <!-- Hack to force render MathJax -->
 
               ${}$
         - name: Render Quarto Project
