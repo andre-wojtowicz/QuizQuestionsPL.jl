@@ -89,8 +89,19 @@ jobs:
                 -e 's/"Something isn'"'"'t correct"/"Nie wszystkie wybrane odpowiedzi są poprawne"/g' \
                 -e 's/"Numeric answer"/"Odpowiedź numeryczna"/g' \
                 -e 's/"Text answer"/"Odpowiedź tekstowa"/g' \
-                -e 's/"answer here..."/"Podaj odpowiedź tutaj..."/g' \
+                -e 's/"answer here..."/"wpisz tutaj odpowiedź..."/g' \
             src/show_methods.jl
+
+        sed -i  -e 's/DONE/Wyślij/g' \
+            src/html_templates.jl
+
+        sed -i  -e 's/"true"/"prawda"/g' \
+                -e 's/"false"/"fałsz"/g' \
+                -e 's/"Yes"/"Tak"/g' \
+                -e 's/"yes"/"tak"/g' \
+                -e 's/"No"/"Nie"/g' \
+                -e 's/"no"/"nie"/g' \
+            src/question_types.jl
 
         git config --global user.name 'Git bot'
         git config --global user.email 'bot@noreply.github.com'
