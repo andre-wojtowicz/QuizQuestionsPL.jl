@@ -59,7 +59,7 @@ jobs:
         echo "Update not needed"
         echo "REPO_DISPATCH=false" >> "$GITHUB_ENV"
     - name: Perform autoupdate
-      #if: ${{ steps.compare_versions.outputs.cond == 'UPDATE' || github.event_name == 'workflow_dispatch' }}
+      if: ${{ steps.compare_versions.outputs.cond == 'UPDATE' || github.event_name == 'workflow_dispatch' }}
       run: |
         echo "Update needed"
         echo "REPO_DISPATCH=true" >> "$GITHUB_ENV"
