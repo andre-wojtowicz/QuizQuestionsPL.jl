@@ -16,7 +16,7 @@ jobs:
       steps:
         - name: Ubuntu dependencies
           run: |
-            apt update && apt install -y make wget curl zip python3 python3-pip jupyter-notebook
+            sudo apt update && sudo apt install -y make wget curl zip python3 python3-pip jupyter-notebook
         - name: Install Quarto
           uses: quarto-dev/quarto-actions/setup@v2
           with:
