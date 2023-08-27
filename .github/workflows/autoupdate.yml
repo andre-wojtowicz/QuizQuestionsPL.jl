@@ -59,7 +59,7 @@ jobs:
         echo "Update not needed"
         echo "REPO_DISPATCH=false" >> "$GITHUB_ENV"
     - name: Perform autoupdate
-      if: ${{ steps.compare_versions.outputs.cond == 'UPDATE' || github.event_name == 'workflow_dispatch' }}
+      #if: ${{ steps.compare_versions.outputs.cond == 'UPDATE' || github.event_name == 'workflow_dispatch' }}
       run: |
         echo "Update needed"
         echo "REPO_DISPATCH=true" >> "$GITHUB_ENV"
@@ -80,33 +80,34 @@ jobs:
 
         PKG_VERSION=$(grep -E '^version = "(.*)"' Project.toml | grep -Eo '[0-9\.]*')
 
-        echo """# QuizQuestionsPL.jl
+        cat > README.md <<EOL
+        # QuizQuestionsPL.jl
 
         Polish translation of [QuizQuestions.jl](https://github.com/jverzani/QuizQuestions.jl).
         
         ## Install
 
-        ```julia
+        \`\`\`julia
         using Pkg
         Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl")
-        ```
+        \`\`\`
 
         Specific version providing [version tag](https://github.com/andre-wojtowicz/QuizQuestionsPL.jl/tags):
 
-        ```julia
+        \`\`\`julia
         Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl", rev="<tag_version>")
-        ```
+        \`\`\`
 
         ## Usage
 
-        ```julia
+        \`\`\`julia
         using QuizQuestionsPL
-        ```
+        \`\`\`
 
         ## Demo
 
         See <https://andre-wojtowicz.github.io/QuizQuestionsPL.jl>
-        """ > README.md
+        EOL
 
         sed -i  -e 's/"Choose..."/"Wybierz..."/g' \
                 -e 's/"Correct"/"Poprawna odpowiedź"/g' \
@@ -142,8 +143,8 @@ jobs:
         git push origin --tags
     - name: Repository Dispatch
       if: ${{ env.REPO_DISPATCH != 'false' }}
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2
       with:
-        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        token: ${{ ${{ secrets.REPO_ACCESS_TOKEN }} }}
         repository: ${{ github.repository }}
         event-type: build-github-pages
