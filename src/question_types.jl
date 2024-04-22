@@ -2,6 +2,7 @@ abstract type Question end
 
 mutable struct Stringq <: Question
     re::Regex
+    filter::Regex
     label
     hint
     explanation
@@ -9,13 +10,15 @@ mutable struct Stringq <: Question
 end
 
 """
-    stringq(re::Regex; label="", hint="", explanation="", placeholder="")
+    stringq(re::Regex; filter::Regex=r"", label="", hint="", explanation="", placeholder="")
 
 Match string answer with regular expression
 
 Arguments:
 
 * `re`: a regular expression for grading
+
+* `filter`: a regular expression for what to remove from the string before matching (e.g. `r"\\s"` to remove whitespace)
 
 * `label`: optional label for the form element
 
@@ -33,9 +36,52 @@ stringq(re, label="First 3 letters...")
 ```
 
 """
-stringq(re::Regex; label="", hint="", explanation="",  placeholder=nothing) =
-    Stringq(re, label, hint, explanation, placeholder)
+stringq(re::Regex; filter::Regex=r"", label="", hint="", explanation="",  placeholder=nothing) =
+    Stringq(re, filter, label, hint, explanation, placeholder)
 
+##
+mutable struct Scriptq <: Question
+    funct::AbstractString
+    label
+    hint
+    explanation
+    placeholder
+end
+
+"""
+    scriptq(funct::AbstractString, runonce::AbstractString=""; label="", hint="", explanation="", placeholder="")
+
+Check string answer with custom script
+
+Arguments:
+
+* `funct`: a string representing the name of a JavaScript function/closure of signature `(str: string): boolean`
+
+* `label`: optional label for the form element
+
+* `hint`: optional plain-text hint that can be seen on hover
+
+* `explanation`: text to display on a wrong selection
+
+* `placeholder`: text shown when input widget is initially drawn
+
+## Example
+
+```javascript
+// in JavaScript
+function threshold(t) {
+    return (input) => input >= t;
+}
+```
+
+```julia
+# in Julia
+stringq("threshold(42)", label="A large number")
+```
+
+"""
+scriptq(funct::AbstractString; label="", hint="", explanation="",  placeholder=nothing) =
+    Scriptq(funct, label, hint, explanation, placeholder)
 
 ##
 mutable struct Numericq <: Question
@@ -57,7 +103,7 @@ Arguments:
 
 * `value`: the numeric answer
 
-* `atol`: ``|answer - value| \\le atol`` is used to determine correctness
+* `atol`: ``|\\mathrm{answer} - \\mathrm{value}| \\le \\mathrm{atol}`` is used to determine correctness
 
 * `label`: optional label for the form element
 

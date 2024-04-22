@@ -42,7 +42,7 @@ html_templates["question_tpl"] = mt"""
 <script>
 var ID = "{{:ID}}"
 </script>
-<form class="mx-2 my-3 mw-100" name='WeaveQuestion' data-id='{{:ID}}' data-controltype='{{:TYPE}}'>
+<form class="mx-2 my-3 mw-100" name='WeaveQuestion' data-id='{{:ID}}' data-controltype='{{:TYPE}}' onSubmit='return false;'>
   <div class='form-group {{:STATUS}}'>
     <div class='controls'>
       <div class="form" id="controls_{{:ID}}" correct='-1' attempts='0'>
@@ -79,6 +79,15 @@ document.getElementById('controls_{{:ID}}').addEventListener("quizquestion_answe
 html_templates["input_grading_script"] = jmt"""
 document.getElementById("{{:ID}}").addEventListener("change", function() {
   var correct = {{{:CORRECT_ANSWER}}};
+  var msgBox = document.getElementById('{{:ID}}_message');
+  $(grading_partial)
+});
+"""
+
+##
+html_templates["function_grading_script"] = jmt"""
+document.getElementById("{{:ID}}").addEventListener("change", function() {
+  var correct = ({{{:FUNCTION}}})(this.value);
   var msgBox = document.getElementById('{{:ID}}_message');
   $(grading_partial)
 });

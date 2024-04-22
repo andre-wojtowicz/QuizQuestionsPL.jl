@@ -52,7 +52,7 @@ function prepare_question(x::Numericq, ID)
     FORM = Mustache.render(html_templates["inputq_form"];
                            ID=ID,
                            PLACEHOLDER = isnothing(x.placeholder) ? "Odpowiedź numeryczna" : x.placeholder,
-                           UNITS=x.units,
+                           UNITS=_markdown_to_html(x.units),
                            TYPE="number",
                            HINT = length(x.label) == 0 ? x.hint : ""
                            )
@@ -81,7 +81,7 @@ function prepare_question(x::Stringq, ID)
     GRADING_SCRIPT =
         Mustache.render(html_templates["input_grading_script"];
                         ID = ID,
-                        CORRECT_ANSWER = """RegExp('$(x.re.pattern)').test(this.value)""",
+                        CORRECT_ANSWER = """RegExp('$(x.re.pattern)').test(this.value.replaceAll(RegExp('$(x.filter.pattern)', 'g'), ''))""",
                         INCORRECT = "Niepoprawna odpowiedź",
                         CORRECT = "Poprawna odpowiedź"
                         )
@@ -89,6 +89,25 @@ function prepare_question(x::Stringq, ID)
 
 end
 
+function prepare_question(x::Scriptq, ID)
+
+    FORM = Mustache.render(html_templates["inputq_form"];
+                           ID=ID,
+                           PLACEHOLDER = isnothing(x.placeholder) ? "Odpowiedź tekstowa" : x.placeholder,
+                           TYPE="text",
+                           HINT = length(x.label) == 0 ? x.hint : ""
+                           )
+
+    GRADING_SCRIPT =
+        Mustache.render(html_templates["function_grading_script"];
+                        ID = ID,
+                        FUNCTION = x.funct,
+                        INCORRECT = "Niepoprawna odpowiedź",
+                        CORRECT = "Poprawna odpowiedź"
+                        )
+    (FORM, GRADING_SCRIPT)
+
+end
 
 function _make_item(i, choice, ID)
     choice′ = sprint(io -> Markdown.html(io, Markdown.parse(choice)))
