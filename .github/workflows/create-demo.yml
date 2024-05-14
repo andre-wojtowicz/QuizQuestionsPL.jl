@@ -216,6 +216,14 @@ jobs:
 
               ----
 
+              ```{julia}
+              #| echo: false
+              funct = "(input) => input >= 42"
+              scriptq(funct, explanation="Podaj liczbę o wartości co najmniej 6 * 7")
+              ```
+
+              ----
+
               Podsumowanie odpowiedzi:
 
               ```{julia}
