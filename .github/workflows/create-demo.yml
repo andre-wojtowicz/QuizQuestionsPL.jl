@@ -22,7 +22,7 @@ jobs:
       steps:
         - name: Ubuntu dependencies
           run: |
-            sudo apt update && sudo apt install -y make wget curl zip python3 python3-pip python3-yaml jupyter-notebook
+            sudo apt update && sudo apt install -y make wget curl zip python3 python3-pip python3-yaml
         - name: Install Quarto
           uses: quarto-dev/quarto-actions/setup@v2
           with:
@@ -32,17 +32,10 @@ jobs:
           with:
             version: 1.9.4
         - name: Install Julia packages (1)
-          run: julia -e 'using Pkg; Pkg.add(["Revise", "Plots"])'
+          run: julia -e 'using Pkg; Pkg.add(["Plots"])'
         - name: Install Julia packages (2)
           run: |
             julia -e 'using Pkg; Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl")'
-            mkdir -p ~/.julia/config
-            echo """try
-              @eval using Revise
-            catch e
-              @warn "Revise init" exception=(e, catch_backtrace())
-            end
-            """ > ~/.julia/config/startup_ijulia.jl
         - name: Create website files (1)
           uses: DamianReeves/write-file-action@master
           with:
