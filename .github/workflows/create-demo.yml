@@ -68,8 +68,6 @@ jobs:
               using QuizQuestionsPL
               ```
 
-              ----
-
               ```{julia}
               #| echo: false
               re = Regex("abc")
