@@ -26,13 +26,13 @@ jobs:
         - name: Install Quarto
           uses: quarto-dev/quarto-actions/setup@v2
           with:
-            version: 1.4.554
+            version: 1.5.37
         - name: Install Julia
           uses: julia-actions/setup-julia@v1
           with:
-            version: 1.9
+            version: 1.9.4
         - name: Install Julia packages (1)
-          run: julia -e 'using Pkg; Pkg.add(["IJulia", "Revise", "Plots"])'
+          run: julia -e 'using Pkg; Pkg.add(["Revise", "Plots"])'
         - name: Install Julia packages (2)
           run: |
             julia -e 'using Pkg; Pkg.add(url="https://github.com/andre-wojtowicz/QuizQuestionsPL.jl")'
@@ -65,7 +65,7 @@ jobs:
               format:
                 html:
                   code-fold: true
-              jupyter: julia-1.9
+              engine: julia
               ---
 
               ```{julia}
