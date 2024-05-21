@@ -59,6 +59,8 @@ jobs:
                 html:
                   code-fold: true
               engine: julia
+              julia:
+                  exeflags: ["--project=~/.julia/environments/v1.9"]
               ---
 
               ```{julia}
