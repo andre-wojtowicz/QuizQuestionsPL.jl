@@ -687,8 +687,8 @@ scorecard(vals)
 ```
 """
 function scorecard(values=[(0,99) =>
-                           "Poprawne odpowiedzi: {{:correct}}. Rozwiązanych pytań: {{:attempted}}. Łącznie pytań do rozwiązania: {{:total_questions}}.",
-                           (99,100) => "Poprawne odpowiedzi: {{:correct}}. Łącznie pytań do rozwiązania: {{:total_questions}}.",
+                           "Poprawnie rozwiązane zadania: {{:correct}}. Rozwiązywanych zadań: {{:attempted}}. Łącznie zadań do rozwiązania: {{:total_questions}}.",
+                           (99,100) => "Poprawnie rozwiązane zadania: {{:correct}}. Łącznie zadań do rozwiązania: {{:total_questions}}.",
                            ];
                    oncompletion::Bool=false,
                    not_completed_msg::String = "",
